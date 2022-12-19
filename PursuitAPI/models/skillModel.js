@@ -54,7 +54,66 @@ function addNewSkill(params) {
   });
 }
 
+function getAllSkills(params, callback) {
+  let text = params.text;
+  let match;
+  if (text != "" && text.length > 0) {
+    match = {
+      skillText: { $regex: text, $options: "i" },
+      isDeleted: false,
+    };
+  } else {
+    match = { isDeleted: false };
+  }
+  let aggregate = [
+    {
+      $facet: {
+        totalData: [
+          {
+            $match: match,
+          },
+        ],
+        totalCount: [
+          {
+            $match: match,
+          },
+          {
+            $count: "count",
+          },
+        ],
+      },
+    },
+  ];
+  model().aggregate(aggregate, function (error, response) {
+    callback(error, response);
+  });
+}
 
+function deleteSkillBySkillId(skillId, callback) {
+  model().findOneAndUpdate(
+    { skillId: skillId },
+    { isDeleted: true },
+    function (error, response) {
+      callback(error, response);
+    }
+  );
+}
+
+function deleteSkillById(id, callback) {
+  model().findOneAndUpdate(
+    { _id: mongoose.Types.ObjectId(id) },
+    { isDeleted: true },
+    {
+      new: true,
+    },
+    function (error, response) {
+      callback(error, response);
+    }
+  );
+}
 module.exports = {
   addNewSkill,
+  getAllSkills,
+  deleteSkillBySkillId,
+  deleteSkillById
 };
