@@ -3,6 +3,7 @@ let router = express.Router();
 let userModel = require("../models/userModel");
 let utils = require("./../common/utils");
 let verifyToken = require("./../common/verifyToken");
+let userService = require("../services/user");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
