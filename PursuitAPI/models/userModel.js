@@ -69,8 +69,68 @@ function userSignUp(params) {
   });
 }
 
+
+function getPanelistsByName(params, callback) {
+  let searchText = params.searchText;
+  let limit = parseInt(params.limit);
+  let skip = parseInt(params.skip);
+  let match;
+  if (searchText != "{searchText}" && searchText.length > 0) {
+    match = {
+      userType: {
+        $in: [2],
+      },
+      $or: [
+        { firstName: { $regex: searchText, $options: "i" } },
+        { lastName: { $regex: searchText, $options: "i" } },
+      ],
+      isDeleted: false,
+    };
+  } else {
+    match = {
+      userType: {
+        $in: [2],
+      },
+      isDeleted: false,
+    };
+  }
+
+  let aggregateQuery = [
+    {
+      $match: match,
+    },
+    {
+      $project: {
+        firstName: 1,
+        lastName: 1,
+        email: 1,
+        userType: 1,
+        mobileNumber: 1,
+        userTypeText: {
+          $cond: {
+            if: { $eq: ["$userType", 1] },
+            then: "Recruiter",
+            else: "Panelist",
+          },
+        },
+      },
+    },
+    {
+      $skip: skip,
+    },
+    {
+      $limit: limit,
+    },
+  ];
+
+  model().aggregate(aggregateQuery, function (error, response) {
+    callback(error, response);
+  });
+}
+
 module.exports = {
   model,
   login,
-  userSignUp
+  userSignUp,
+  getPanelistsByName
 }

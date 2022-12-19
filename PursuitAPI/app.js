@@ -56,9 +56,11 @@ blackListModel = require('./models/blacklistModel');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
+let panelistsRouter = require('./routes/panelists');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/panelists', panelistsRouter);
 
 // Services
 
