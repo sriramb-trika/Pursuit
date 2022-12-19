@@ -4,11 +4,11 @@ let userModel = require("../models/userModel");
 let utils = require("./../common/utils");
 let verifyToken = require("./../common/verifyToken");
 let userService = require("../services/user");
+let mailer = require("./../services/mailer");
 
-router.get('/', function(req, res, next) {
-  res.send('Pursuit API');
+router.get("/", function (req, res, next) {
+  res.send("Pursuit API");
 });
-
 
 /**
  * @swagger
@@ -64,6 +64,30 @@ router.post("/userSignup", function (req, res, next) {
       .userSignUp(params)
       .then((userData) => {
         if (userData) {
+          let name = userData.firstName;
+          if (userData.lastName != null) {
+            name = name + " " + userData.lastName;
+          }
+
+          if (userData.userType == 1) {
+            mailer.sendMail(
+              "recruiterWelcomeEmail.html",
+              userData.email,
+              "Pursuit - Recruiter welcome email",
+              {
+                name: name,
+              }
+            );
+          } else {
+            mailer.sendMail(
+              "panelistWelcomeEmail.html",
+              userData.email,
+              "Pursuit - Panelist welcome email",
+              {
+                name: name,
+              }
+            );
+          }
           res.status(200).send({
             message: "Registered the user successfully",
             data: userData,
@@ -169,6 +193,25 @@ router.post("/login", async function (req, res, next) {
           if (userData.lastName != null) {
             name = name + " " + userData.lastName;
           }
+          if (userData.userType == 1) {
+            mailer.sendMail(
+              "recruiterWelcomeEmail.html",
+              userData.email,
+              "Pursuit - Recruiter welcome email",
+              {
+                name: name,
+              }
+            );
+          } else {
+            mailer.sendMail(
+              "panelistWelcomeEmail.html",
+              userData.email,
+              "Pursuit - Panelist welcome email",
+              {
+                name: name,
+              }
+            );
+          }
           let token = utils.generateJwtToken({
             userId: userData._id,
             name: name,
@@ -255,6 +298,5 @@ router.post("/logOut", verifyToken, async function (req, res, next) {
     });
   }
 });
-
 
 module.exports = router;

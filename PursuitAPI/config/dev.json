@@ -11,5 +11,15 @@
     "host": "localhost",
     "port": "27017",
     "database": "pursuit"
+  },
+  "mail": {
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "trikathont1@trikatechnologies.com",
+      "pass": "TrikaCoimbatore@2022"
+    },
+    "year": "2022"
   }
 }
