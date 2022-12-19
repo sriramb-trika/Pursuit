@@ -1,0 +1,71 @@
+[
+    {
+      "PositionText": "Developer",
+      "PositionID": "Dev"
+    },
+    {
+      "PositionText": "Senior Developer",
+      "PositionID": "Senior Dev"
+    },
+    {
+      "PositionText": "Technical Lead",
+      "PositionID": "Tech Lead"
+    },
+    {
+      "PositionText": "Associate Architect",
+      "PositionID": "Asct Architect"
+    },
+    {
+      "PositionText": "Technical Architect",
+      "PositionID": "Tech Architect"
+    },
+    {
+      "PositionText": "Solution Architect",
+      "PositionID": "Soln Architect"
+    },
+    {
+      "PositionText": "Test Engineer",
+      "PositionID": "QA Engineer"
+    },
+    {
+      "PositionText": "Senior Test Engineer",
+      "PositionID": "Senior QA Engineer"
+    },
+    {
+      "PositionText": "Test Lead",
+      "PositionID": "QA Lead"
+    },
+    {
+      "PositionText": "Associate Test Architect",
+      "PositionID": "Asct QA Architect"
+    },
+    {
+      "PositionText": "Test Architect",
+      "PositionID": "QA Arechitect"
+    },
+    {
+      "PositionText": "Business Analyst",
+      "PositionID": "BA"
+    },
+    {
+      "PositionText": "Senior Business Analyst",
+      "PositionID": "Senior BA"
+    },
+    {
+      "PositionText": "Project Manager",
+      "PositionID": "PM"
+    },
+    {
+      "PositionText": "Delivery Manager",
+      "PositionID": "DM"
+    },
+    {
+      "PositionText": "Sales Manager",
+      "PositionID": "SM"
+    },
+    {
+      "PositionText": "Office Admin Manager",
+      "PositionID": "Admin"
+    }
+  ]
+  

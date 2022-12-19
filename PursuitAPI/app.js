@@ -51,6 +51,8 @@ db.once('open', function () {
 // Models
 userModel = require('./models/userModel');
 blackListModel = require('./models/blacklistModel');
+positionModel = require('./models/positionModel');
+
 
 // Routes
 
@@ -58,11 +60,15 @@ let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let panelistsRouter = require('./routes/panelists');
 let recruitersRouter = require('./routes/recruiters');
+let positionsRouter = require('./routes/positions');
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/panelists', panelistsRouter);
 app.use('/recruiters', recruitersRouter);
+app.use('/positions', positionsRouter);
+
 
 // Services
 
