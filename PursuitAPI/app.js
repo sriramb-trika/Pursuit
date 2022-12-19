@@ -57,10 +57,12 @@ blackListModel = require('./models/blacklistModel');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let panelistsRouter = require('./routes/panelists');
+let recruitersRouter = require('./routes/recruiters');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/panelists', panelistsRouter);
+app.use('/recruiters', recruitersRouter);
 
 // Services
 

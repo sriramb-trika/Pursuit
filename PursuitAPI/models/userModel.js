@@ -220,8 +220,6 @@ function deactivateUser(params, callback) {
 }
 
 function deleteUser(id, callback) {
-  let id = id;
-
   id = mongoose.Types.ObjectId(id);
   model().findOneAndUpdate(
     {
@@ -305,6 +303,65 @@ function updatePanelistProfile(params, callback) {
   );
 }
 
+
+function getRecruitersByName(params, callback) {
+  console.log(params);
+  let searchText = params.searchText;
+  let limit = parseInt(params.limit);
+  let skip = parseInt(params.skip);
+
+  let match;
+  if (searchText != "{searchText}" && searchText.length > 0) {
+    match = {
+      userType: {
+        $in: [1],
+      },
+      $or: [
+        { firstName: { $regex: searchText, $options: "i" } },
+        { lastName: { $regex: searchText, $options: "i" } },
+      ],
+      isDeleted: false,
+    };
+  } else {
+    match = {
+      userType: {
+        $in: [1],
+      },
+      isDeleted: false,
+    };
+  }
+  let aggregateQuery = [
+    {
+      $match: match,
+    },
+    {
+      $project: {
+        firstName: 1,
+        lastName: 1,
+        email: 1,
+        userType: 1,
+        mobileNumber: 1,
+        userTypeText: {
+          $cond: {
+            if: { $eq: ["$userType", 1] },
+            then: "Recruiter",
+            else: "Panelist",
+          },
+        },
+      },
+    },
+    {
+      $skip: skip,
+    },
+    {
+      $limit: limit,
+    },
+  ];
+  model().aggregate(aggregateQuery, function (error, response) {
+    callback(error, response);
+  });
+}
+
 module.exports = {
   model,
   login,
@@ -314,5 +371,6 @@ module.exports = {
   deactivateUser,
   updatePanelistsSkills,
   updatePanelistProfile,
-  deleteUser
+  deleteUser,
+  getRecruitersByName
 }
