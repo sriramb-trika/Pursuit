@@ -1,0 +1,16 @@
+{
+    "project": {
+      "port": 3041,
+      "jwtSecret": "@h3@re@p1se3retkey02",
+      "url": "localhost:3041",
+      "host": "localhost"
+    },
+    "database": {
+      "username": "pursuituser",
+      "password": "Welcome1234",
+      "host": "localhost",
+      "port": "27017",
+      "database": "pursuit"
+    }
+  }
+  
