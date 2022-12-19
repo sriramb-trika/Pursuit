@@ -56,4 +56,5 @@ router.get("/listAllPositionsWithSearch/:searchText", verifyToken, function (req
     });
   }
 });
+
 module.exports = router;
