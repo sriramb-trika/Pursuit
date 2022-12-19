@@ -128,9 +128,191 @@ function getPanelistsByName(params, callback) {
   });
 }
 
+
+// Logic not working. Needs fix
+function getPanelistsBySkills(searchText, callback) {
+  let match;
+  if (searchText != "{searchText}" && searchText.length > 0) {
+    match = {
+      $nor: [
+        { skills: { $exists: false } },
+        { skills: { $size: 0 } },
+        { skills: { $size: 1 } },
+      ],
+      $or: [
+        {
+          userType: 2,
+        },
+        {
+          skills: {
+            $in: [searchText],
+          },
+        },
+        { isDeleted: false },
+      ],
+    };
+  } else {
+    match = {
+      $nor: [
+        { skills: { $exists: false } },
+        { skills: { $size: 0 } },
+        { skills: { $size: 1 } },
+      ],
+      $or: [
+        {
+          userType: 2,
+        },
+        { isDeleted: false },
+      ],
+    };
+  }
+
+  let aggregateQuery = [
+    {
+      $match: match,
+    },
+    {
+      $project: {
+        firstName: 1,
+        lastName: 1,
+        email: 1,
+        userType: 1,
+        mobileNumber: 1,
+        skills: 1,
+        userTypeText: {
+          $cond: {
+            if: { $eq: ["$userType", 1] },
+            then: "Recruiter",
+            else: "Panelist",
+          },
+        },
+      },
+    },
+  ];
+
+  model().aggregate(aggregateQuery, function (error, response) {
+    callback(error, response);
+  });
+}
+
+
+function deactivateUser(params, callback) {
+  let id = params.id;
+  let isDeactivated = params.isDeactivated;
+
+  id = mongoose.Types.ObjectId(id);
+  model().findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      $set: {
+        isDeactivated: isDeactivated,
+      },
+    },
+    {
+      new: true,
+    },
+    function (error, response) {
+      callback(error, response);
+    }
+  );
+}
+
+function deleteUser(id, callback) {
+  let id = id;
+
+  id = mongoose.Types.ObjectId(id);
+  model().findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      $set: {
+        isDeleted: true,
+      },
+    },
+    {
+      new: true,
+    },
+    function (error, response) {
+      callback(error, response);
+    }
+  );
+}
+
+
+
+function updatePanelistsSkills(id, params) {
+  return new Promise((resolve, reject) => {
+    userModel
+      .findOne({
+        _id: id,
+      })
+      .then((data) => {
+        if (!data) {
+          reject({
+            message: "Invalid user",
+          });
+        } else {
+          userModel
+            .updateOne(
+              {
+                _id: id,
+              },
+              {
+                $push: { skills: params },
+              }
+            )
+            .then((data) => {
+              resolve(data);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+
+function updatePanelistProfile(params, callback) {
+  let id = params.id;
+
+  let firstName = params.firstName;
+  let lastName = params.firstName;
+  let phoneNumber = params.phoneNumber;
+  let skills = params.skills;
+
+  model().findOneAndUpdate(
+    { _id: id, userType: params.userType },
+    {
+      $set: {
+        firstName: firstName,
+        lastName: lastName,
+        // email : email,
+        phoneNumber: phoneNumber,
+        skills: skills,
+      },
+    },
+    { new: true },
+    function (error, response) {
+      callback(error, response);
+    }
+  );
+}
+
 module.exports = {
   model,
   login,
   userSignUp,
-  getPanelistsByName
+  getPanelistsByName,
+  getPanelistsBySkills,
+  deactivateUser,
+  updatePanelistsSkills,
+  updatePanelistProfile,
+  deleteUser
 }

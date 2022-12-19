@@ -24,7 +24,7 @@ router.get("/", function (req, res, next) {
  *       - name: Details
  *         description: Athlete details
  *         in: body
- *         default : '{"name":"Ramesh","email":"ramesh.b@yopmail.com","password":"Welcome@123","userType":1}'
+ *         default : '{"name":"Sriram","email":"sriram.b@trikatechnologies.com","password":"Welcome@123","userType":1}'
  *         schema:
  *           $ref: '#/definitions/User'
  *     responses:
@@ -126,7 +126,7 @@ router.post("/userSignup", function (req, res, next) {
  *        - name: body
  *          description: send params for login
  *          in: body
- *          default: '{"email":"ramesh.b@yopmail.com","password":"Welcome@123"}'
+ *          default: '{"email":"sriram.b@trikatechnologies.com","password":"Welcome@123"}'
  *          schema:
  *            $ref: '#/definitions/loginRef'
  *     responses:
@@ -193,25 +193,7 @@ router.post("/login", async function (req, res, next) {
           if (userData.lastName != null) {
             name = name + " " + userData.lastName;
           }
-          if (userData.userType == 1) {
-            mailer.sendMail(
-              "recruiterWelcomeEmail.html",
-              userData.email,
-              "Pursuit - Recruiter welcome email",
-              {
-                name: name,
-              }
-            );
-          } else {
-            mailer.sendMail(
-              "panelistWelcomeEmail.html",
-              userData.email,
-              "Pursuit - Panelist welcome email",
-              {
-                name: name,
-              }
-            );
-          }
+         
           let token = utils.generateJwtToken({
             userId: userData._id,
             name: name,

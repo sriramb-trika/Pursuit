@@ -17,8 +17,8 @@
     "port": 465,
     "secure": true,
     "auth": {
-      "user": "trikathont1@trikatechnologies.com",
-      "pass": "TrikaCoimbatore@2022"
+      "user": "",
+      "pass": ""
     },
     "year": "2022"
   }
