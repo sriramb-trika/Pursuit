@@ -19,9 +19,11 @@ const candidateSchema = new Schema(
     preferredLocation: { type: String, default: null },
     referredBy: { type: String, default: null },
     referralEmail: { type: String, default: null },
+    resumeUrl: { type: String, default: null },
+    positionConsidered : {type : mongoose.Schema.Types.ObjectId, ref : "position", required: true},
+    positionSuited : {type : mongoose.Schema.Types.ObjectId, ref : "position", required : false},
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     createdDateTime: { type: Number, default: new Date().getTime() },
-    resumeUrl: { type: String, default: null },
   },
   {
     versionKey: false,
@@ -82,6 +84,34 @@ function getCandidatesByName(params, callback) {
 
   let aggregateQuery = [
     {
+     $lookup: {
+        'from': "positions",
+        'localField': "positionConsidered",
+        'foreignField': "_id",
+        'as': "positions"
+      }
+    },
+    {
+      "$unwind": {
+        'path': "$positions",
+      }
+    },
+    {
+      $lookup: {
+         'from': "positions",
+         'localField': "positionSuited",
+         'foreignField': "_id",
+         'as': "positions1"
+       }
+     },
+     {
+       "$unwind": {
+         'path': "$positions1",
+         preserveNullAndEmptyArrays: true
+
+       }
+     },
+    {
       $match: match,
     },
     {
@@ -96,6 +126,8 @@ function getCandidatesByName(params, callback) {
         city: 1,
         state: 1,
         pincode: 1,
+        positionConsidered : "$positions.positionText",
+        positionSuited : "$positions1.positionText"
       },
     },
     {

@@ -77,7 +77,7 @@ function listAllPositionsWithSearch(search) {
     {
       $project: {
         positionText: 1,
-        _id: 0,
+        _id: 1,
       },
     },
     {

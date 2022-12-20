@@ -142,7 +142,7 @@ router.get(
  *       - application/json
  *     parameters:
  *       - name: x-access-token
- *         description: x-access-token of patient
+ *         description: x-access-token of user
  *         in: header
  *         type: string
  *         required: true

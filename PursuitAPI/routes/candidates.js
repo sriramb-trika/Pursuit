@@ -6,10 +6,10 @@ let verifyToken = require("./../common/verifyToken");
  * @swagger
  * /candidates/addCandidateProfile:
  *   post:
- *     summary: Signing up a new user. This could be a recruiter or panelist
+ *     summary: Adding a new candidates profile
  *     tags:
  *       - Candidates
- *     description: Signing up a new user. This could be a recruiter or panelist
+ *     description: Adding a new candidates profile
  *     produces:
  *       - application/json
  *     parameters:
@@ -18,14 +18,14 @@ let verifyToken = require("./../common/verifyToken");
  *         type: string
  *         required: true
  *       - name: Details
- *         description: Candidate details
+ *         description: candidates profile details
  *         in: body
- *         default : '{"firstName":"Harry","lastName":"Ford","email":"harry.ford@yopmail.com","phoneNumber":"+919629883300","gender":"male","dob":"10/07/1995","address":"12, 1st street, 3rd cross","city":"Chennai","state":"Tamil Nadu","pincode":"600001","linkedInAccount":"www.linkedin.com/harry.ford","preferredLocation":"Bangalore","referredBy":"talentoHR","referralEmail":"admin@talentohr.com"}'
+ *         default : '{"firstName":"Harry","lastName":"Ford","email":"harry.ford@yopmail.com","phoneNumber":"+919629883300","gender":"male","dob":"10/07/1995","address":"12, 1st street, 3rd cross","city":"Chennai","state":"Tamil Nadu","pincode":"600001","linkedInAccount":"www.linkedin.com/harry.ford","preferredLocation":"Bangalore","referredBy":"talentoHR","referralEmail":"admin@talentohr.com", "positionConsidered":"5ea95d3ac73f3120f8aa55d1"}'
  *         schema:
  *           $ref: '#/definitions/Candidates'
  *     responses:
  *       200:
- *         description: Successfully created
+ *         description: Successfully added a new candidate
  */
 
 /**
@@ -58,6 +58,8 @@ let verifyToken = require("./../common/verifyToken");
  *       referredBy:
  *         type: string
  *       referralEmail:
+ *         type: string
+ *       positionConsidered:
  *         type: string
  */
 
@@ -93,10 +95,10 @@ router.post("/addCandidateProfile", verifyToken, async function (req, res) {
  * @swagger
  * /candidates/getCandidatesByName/{searchText}:
  *   get:
- *     summary: Get all the panelists by their name. 
+ *     summary: Get all the candidates by their name. 
  *     tags:
  *       - Candidates
- *     description: Get all user profile details (Recruiters and Panelists) by their name as search parameter
+ *     description: Get all candidates details by their name as search parameter
  *     produces:
  *       - application/json
  *     parameters:
@@ -120,7 +122,7 @@ router.post("/addCandidateProfile", verifyToken, async function (req, res) {
  *         required: true
  *     responses:
  *       200:
- *         description: To get panelists profile details
+ *         description: To get candidate details    
  */
 
 router.get("/getCandidatesByName/:searchText", function (req, res) {

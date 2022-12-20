@@ -130,7 +130,7 @@ router.get("/getAllSkills", function (req, res, next) {
  *       - application/json
  *     parameters:
  *       - name: x-access-token
- *         description: x-access-token of doctor
+ *         description: x-access-token of user
  *         in: header
  *         type: string
  *         required: true
