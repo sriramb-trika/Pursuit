@@ -20,7 +20,7 @@ let verifyToken = require("./../common/verifyToken");
  *       - name: Details
  *         description: candidates profile details
  *         in: body
- *         default : '{"firstName":"Harry","lastName":"Ford","email":"harry.ford@yopmail.com","phoneNumber":"+919629883300","gender":"male","dob":"10/07/1995","address":"12, 1st street, 3rd cross","city":"Chennai","state":"Tamil Nadu","pincode":"600001","linkedInAccount":"www.linkedin.com/harry.ford","preferredLocation":"Bangalore","referredBy":"talentoHR","referralEmail":"admin@talentohr.com", "positionConsidered":"5ea95d3ac73f3120f8aa55d1"}'
+ *         default : '{"firstName":"Harry","lastName":"Ford","email":"harry.ford@yopmail.com","phoneNumber":"+919629883300","gender":"male","dob":"10/07/1995","address":"12, 1st street, 3rd cross","immediateJoinee":true,"yearsOfExperience":"3","qualification":"BCA","noticePeriod":"2","linkedInAccount":"www.linkedin.com/harry.ford","preferredLocation":"Bangalore","referredBy":"talentoHR","referralEmail":"admin@talentohr.com","positionConsidered":"5ea95d3ac73f3120f8aa55d1"}'
  *         schema:
  *           $ref: '#/definitions/Candidates'
  *     responses:
@@ -47,11 +47,13 @@ let verifyToken = require("./../common/verifyToken");
  *         type: string
  *       address:
  *         type: string
- *       city:
+ *       immediateJoinee:
  *         type: string
- *       state:
+ *       yearsOfExperience:
  *         type: string
- *       pinCode:
+ *       qualification:
+ *         type: string
+ *       noticePeriod:
  *         type: string
  *       linkedInAccount:
  *         type: string
