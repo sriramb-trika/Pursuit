@@ -53,7 +53,7 @@ userModel = require('./models/userModel');
 blackListModel = require('./models/blacklistModel');
 positionModel = require('./models/positionModel');
 skillModel = require('./models/skillModel');
-
+candidateModel = require('./models/candidateModel');
 
 // Routes
 
@@ -63,6 +63,7 @@ let panelistsRouter = require('./routes/panelists');
 let recruitersRouter = require('./routes/recruiters');
 let positionsRouter = require('./routes/positions');
 let skillsRouter = require('./routes/skills');
+let candidateRouter = require('./routes/candidates');
 
 
 app.use('/', indexRouter);
@@ -71,6 +72,8 @@ app.use('/panelists', panelistsRouter);
 app.use('/recruiters', recruitersRouter);
 app.use('/positions', positionsRouter);
 app.use('/skills', skillsRouter);
+app.use('/candidates', candidateRouter);
+
 
 // CORS
 app.use(function (req, res, next) {

@@ -22,7 +22,7 @@ router.get("/", function (req, res, next) {
  *       - application/json
  *     parameters:
  *       - name: Details
- *         description: Athlete details
+ *         description: User details
  *         in: body
  *         default : '{"name":"Sriram","email":"sriram.b@trikatechnologies.com","password":"Welcome@123","userType":1}'
  *         schema:
