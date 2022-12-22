@@ -7,11 +7,12 @@ import {
   Navigate
 } from "react-router-dom";
 
+
 import Home from './pages/Home';
-import Dashboard from './pages/dashboard';
-import Interviews from './pages/interviews';
-import Candidates from './pages/Candidates';
-import Panelists from './pages/panelists';
+import UserRoles from './pages/UserRole';
+// import Interviews from './pages/Recruiter/interviews';
+// import Candidates from './pages/Recruiter/Candidates';
+// import Panelists from './pages/Recruiter/panelists';
 
 
 function App() {
@@ -20,10 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home/>} />
-          <Route path = "/dashboard" element={<Dashboard/>} />
-          <Route path = "/interviews" element={<Interviews/>} />
-          <Route path = "/candidates" element={<Candidates/>} />
-          <Route path = "/panelists" element={<Panelists/>} /> 
+          <Route path = "/userRoles" element={<UserRoles/>} />
         </Routes>
       </Router>
     </>

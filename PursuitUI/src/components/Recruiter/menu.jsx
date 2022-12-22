@@ -7,7 +7,7 @@ export default function Menu ( props) {
   return (
     <>
    
-    <ul className=" w-50 border border-neutral-300 h-screen bg-neutral-200">
+    <ul className=" w-50  border border-neutral-300  bg-neutral-200 h-screen">
     <div className=" mx-3 my-5">
     <IoClose size={40} onClick={()=>props.setShowNav(false)}/>
     </div>

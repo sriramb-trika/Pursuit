@@ -1,8 +1,8 @@
 import React , {useState}  from "react";
 import ManWorking from '../images/laptop.jpg'
-import Profile from '../images/seeprofile.webp';
-import SignUp from "../components/signUp";
-import Login from "../components/login";
+import Pursuit from '../images/pursuit.jpg';
+import SignUp from "../components/User/signUp";
+import Login from "../components/User/login";
 
 export default function Home () {
 
@@ -11,8 +11,11 @@ export default function Home () {
   return (
     <>
      {/* bg-gradient-to-r from-orange-300 to-red-400  */}
-    <div className=" h-screen flex justify-center px-10 ">
-
+      <div className=" flex justify-center mt-5">
+      <img src={Pursuit} width={200} height={50}  alt='' />
+      </div>
+    <div className=" flex justify-center px-5 ">
+{/* 
     <div className=" w-1/3  my-40 mx-10 p-4 border border-r-neutral-300 border-white">
     <div className=" flex mb-4 space-x-3 ">
     <img src={ManWorking} width={300} height={300}  alt='' className='float-left rounded-2xl shadow-2xl'/>
@@ -27,10 +30,14 @@ export default function Home () {
     <img src={Profile} width={300} height={300}  alt='' className='float-left rounded-2xl shadow-2xl'/>
    
     </div>
+    </div> */}
+   
+     
+   {signUp ? 
+    <SignUp setSignUp={setSignUp}/> 
+    : <Login setSignUp={setSignUp}/>}
     </div>
-   {signUp ?  <SignUp setSignUp={setSignUp}/> : <Login setSignUp={setSignUp}/>}
 
-    </div>
     </>
   )
 }
